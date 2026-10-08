@@ -2,7 +2,7 @@ import logging
 
 from fastapi import FastAPI
 
-from app.api import account, auth, topics
+from app.api import account, auth, telegram, topics
 from app.api.csrf import CSRFMiddleware
 from app.core.config import get_settings
 from app.core.logging import setup_logging
@@ -20,6 +20,7 @@ def create_app() -> FastAPI:
     app.include_router(account.router)
     app.include_router(auth.router)
     app.include_router(topics.router)
+    app.include_router(telegram.router)
     return app
 
 

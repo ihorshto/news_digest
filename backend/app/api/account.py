@@ -1,10 +1,11 @@
 from fastapi import APIRouter
 
 from app.api.auth import user_out
-from app.api.deps import CurrentUser, DbSession, SettingsDep
+from app.api.deps import CurrentUser, DbSession, RedisDep, SettingsDep
 from app.api.schemas import MetaOut, UserOut, UserUpdateIn
 from app.models import Frequency
 from app.services.languages import SUPPORTED_LANGUAGES
+from app.services.telegram_link import BOT_USERNAME_KEY
 from app.services.topics import reschedule_user_topics
 
 router = APIRouter(prefix="/api", tags=["account"])
@@ -16,9 +17,10 @@ async def health() -> dict[str, str]:
 
 
 @router.get("/meta", response_model=MetaOut)
-async def meta(settings: SettingsDep) -> MetaOut:
+async def meta(settings: SettingsDep, redis: RedisDep) -> MetaOut:
+    bot_username = await redis.get(BOT_USERNAME_KEY) or settings.telegram_bot_username
     return MetaOut(
-        bot_username=settings.telegram_bot_username,
+        bot_username=bot_username.lstrip("@"),
         languages=SUPPORTED_LANGUAGES,
         frequencies=[f.value for f in Frequency],
         max_topics_per_user=settings.max_topics_per_user,
