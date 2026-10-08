@@ -1,0 +1,52 @@
+[project]
+name = "newsdigest"
+version = "0.1.0"
+description = "AI news digests by topic delivered to Telegram"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "alembic>=1.20.0",
+    "asyncmy>=0.2.16",
+    "fastapi>=0.142.4",
+    "pydantic[email]>=2.13.5",
+    "pydantic-settings>=2.15.0",
+    "sqlalchemy[asyncio]>=2",
+    "uvicorn[standard]>=0.54.0",
+    "argon2-cffi>=25.1.0",
+    "pyjwt>=2.15.1",
+    "redis>=5.3.1",
+    "arq>=0.28.0",
+    "aiogram>=3.31.0",
+    "feedparser>=6.0.14",
+    "httpx>=0.28.1",
+    "tavily-python>=0.8.5",
+    "fastembed>=0.9.0",
+    "numpy>=2.5.3",
+    "openai>=3.26.0",
+    "cryptography>=50.0.2",
+]
+
+[tool.uv]
+package = false
+
+[dependency-groups]
+dev = [
+    "aiosqlite>=0.22.1",
+    "fakeredis>=2.39.0",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "respx>=0.23.1",
+    "ruff>=0.16.10",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "ASYNC"]
+ignore = ["B008"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
