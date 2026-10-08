@@ -1,0 +1,31 @@
+{
+  "query": "crypto exchange hack",
+  "response_time": 1.2,
+  "results": [
+    {
+      "url": "https://www.reuters.com/technology/crypto-exchange-hacked-2026-10-07/?utm_source=tavily&utm_medium=api",
+      "title": "Crypto exchange loses $120 million in hot wallet hack",
+      "content": "A major cryptocurrency exchange said on Tuesday that attackers drained about $120 million from one of its hot wallets. Withdrawals were paused while the company investigates.",
+      "score": 0.91,
+      "published_date": "Tue, 07 Oct 2026 14:05:00 GMT"
+    },
+    {
+      "url": "https://www.coindesk.com/policy/2026/10/07/eu-mica-stablecoin-rules",
+      "title": "EU regulators publish final MiCA guidance on stablecoins",
+      "content": "European regulators released final technical standards for stablecoin issuers under MiCA.",
+      "score": 0.84,
+      "published_date": "2026-10-07T09:30:00Z"
+    },
+    {
+      "url": "https://example.org/no-date",
+      "title": "Article without a date",
+      "content": "",
+      "score": 0.4
+    },
+    {
+      "url": "",
+      "title": "Broken result without url",
+      "content": "x"
+    }
+  ]
+}

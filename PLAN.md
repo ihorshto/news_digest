@@ -4,7 +4,7 @@
 - [x] 2. Backend: models, migrations, auth + tests
 - [x] 3. Frontend: design system, login/register, protected routes
 - [x] 4. Topics CRUD + LLM topic expansion + tests
-- [ ] 5. News collectors (Google News RSS, Tavily) with fixture-based tests
+- [x] 5. News collectors (Google News RSS, Tavily) with fixture-based tests
 - [ ] 6. Embeddings, relevance filter, clustering + tests
 - [ ] 7. Digest generation + delivery + fakes
 - [ ] 8. Scheduling (arq cron), idempotency, timezones + `next_run_at` tests
