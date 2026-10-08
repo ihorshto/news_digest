@@ -68,6 +68,7 @@ export function Spinner({ className }: { className?: string }) {
 const fieldBase =
   "w-full rounded-lg border border-border bg-surface px-3 text-text placeholder:text-faint " +
   "transition-colors hover:border-border-strong focus:border-accent focus:outline-none " +
+  "focus-visible:outline-none focus:ring-2 focus:ring-accent/15 " +
   "aria-[invalid=true]:border-danger";
 
 export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(

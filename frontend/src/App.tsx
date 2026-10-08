@@ -4,7 +4,10 @@ import Layout from "./components/Layout";
 import { RedirectIfAuthed, RequireAuth } from "./lib/auth";
 import AuthPage from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
+import HistoryPage from "./pages/HistoryPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import SettingsPage from "./pages/SettingsPage";
+import TopicPage from "./pages/TopicPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,6 +44,10 @@ export default function App() {
             }
           >
             <Route index element={<DashboardPage />} />
+            <Route path="topics/new" element={<TopicPage />} />
+            <Route path="topics/:id" element={<TopicPage />} />
+            <Route path="topics/:id/history" element={<HistoryPage />} />
+            <Route path="settings" element={<SettingsPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>

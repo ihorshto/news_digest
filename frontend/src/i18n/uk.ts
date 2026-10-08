@@ -74,7 +74,7 @@ export const uk = {
     emptyCta: "Створити першу тему",
     nextRun: "Наступна розсилка",
     lastRun: "Остання перевірка",
-    digests: "дайджестів",
+    digests: (n: number) => `${n} ${plural(n, "дайджест", "дайджести", "дайджестів")}`,
     active: "Активна",
     paused: "На паузі",
     history: "Історія",
@@ -149,6 +149,16 @@ export const uk = {
     "6h": "Кожні 6 годин",
     daily: "Щодня",
     weekly: "Щотижня",
+  } as Record<string, string>,
+
+  runStatus: {
+    queued: "у черзі",
+    empty: "нових новин немає",
+    sent: "надіслано",
+    fake_sent: "збережено (fake Telegram)",
+    no_chat: "Telegram не підключено",
+    failed: "помилка надсилання",
+    error: "помилка обробки",
   } as Record<string, string>,
 
   weekdays: ["Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя"],
