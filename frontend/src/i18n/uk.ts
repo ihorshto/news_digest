@@ -114,7 +114,7 @@ export const uk = {
     weekday: "День тижня",
     timezoneNote: (tz: string) => `Час у вашому часовому поясі: ${tz}`,
     threshold: "Поріг релевантності",
-    thresholdHint: "Вище — менше, але точніші новини. Типово 0.38.",
+    thresholdHint: "Вище — менше, але точніші новини.",
     advanced: "Додатково",
     create: "Створити тему",
     creating: "Створюємо і генеруємо запити…",

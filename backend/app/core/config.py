@@ -44,8 +44,8 @@ class Settings(BaseSettings):
     embedding_model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
     embedding_cache_dir: str = "/models"
     fake_embeddings: bool = False
-    relevance_threshold: float = 0.38
-    cluster_threshold: float = 0.85
+    relevance_threshold: float = 0.30
+    cluster_threshold: float = 0.80
     max_topics_per_user: int = 10
     max_events_per_digest: int = 10
     tavily_max_results: int = 10
