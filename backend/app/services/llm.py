@@ -267,10 +267,12 @@ class FakeLLMClient:
         phrases = [p.strip() for p in re.split(r"[,:;.\n]+", description) if len(p.strip()) > 2]
         # A lone word ("regulation") is too vague as a news query; anchor it to the topic.
         phrases = [p if len(p.split()) > 1 else f"{name} {p}" for p in phrases]
-        candidates = [name, *phrases]
+        # Descriptions often repeat the name ("Crypto: prices, ..."); skip that phrase.
+        distinct = [p for p in phrases if p.lower() != name.lower()]
+        candidates = [name, *distinct]
         out = TopicExpansionOut(
             google_news_queries=[LLMQuery(query=c, language=language) for c in candidates],
-            tavily_queries=[f"{name}: {phrases[0]}" if phrases else name],
+            tavily_queries=[f"{name}: {distinct[0]}" if distinct else name],
         )
         try:
             return normalize_expansion(out, language)

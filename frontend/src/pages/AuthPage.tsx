@@ -27,8 +27,8 @@ export default function AuthPage({ mode }: { mode: "login" | "register" }) {
       return api.login(email.trim(), password);
     },
     onSuccess: (user) => {
-      setMe(user);
       const from = (location.state as { from?: string } | null)?.from;
+      setMe(user);
       navigate(isRegister ? "/topics/new" : from || "/", { replace: true });
     },
   });

@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { Navigate, useLocation } from "react-router";
 import { api, ApiError, type User } from "./api";
 import { Skeleton } from "../components/ui";
@@ -44,9 +44,14 @@ export function RequireAuth({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }
 
+/** Sends already-signed-in visitors away from /login and /register. The decision is taken
+ * once, when the session check first resolves: a successful login *on* this page changes
+ * the session too, and then the form itself decides where to go. */
 export function RedirectIfAuthed({ children }: { children: ReactNode }) {
   const { data: user, isPending } = useMe();
-  if (isPending) return <FullPageSkeleton />;
-  if (user) return <Navigate to="/" replace />;
+  const [authedOnArrival, setAuthedOnArrival] = useState<boolean | null>(null);
+  if (!isPending && authedOnArrival === null) setAuthedOnArrival(!!user);
+  if (isPending || authedOnArrival === null) return <FullPageSkeleton />;
+  if (authedOnArrival) return <Navigate to="/" replace />;
   return <>{children}</>;
 }

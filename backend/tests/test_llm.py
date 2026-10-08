@@ -202,3 +202,12 @@ async def test_openai_responses_api_request_shape():
     assert seen["body"]["text"]["format"]["strict"] is True
     assert "tools" not in seen["body"]
     assert [q.source for q in queries].count("tavily") == 1
+
+
+async def test_fake_expansion_skips_repeated_name():
+    queries = await FakeLLMClient().expand_topic(
+        "Штучний інтелект", "Штучний інтелект: нові моделі, регулювання ШІ, угоди компаній", "uk"
+    )
+    texts = [q.query for q in queries]
+    assert texts.count("Штучний інтелект") == 1
+    assert "Штучний інтелект: нові моделі" in texts

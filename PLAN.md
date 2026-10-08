@@ -11,4 +11,4 @@
 - [x] 9. Telegram bot and account linking
 - [x] 10. Remaining frontend pages, history, settings, dark theme
 - [x] 11. E2E smoke test `scripts/smoke_test.sh`
-- [ ] 12. README.md
+- [x] 12. README.md

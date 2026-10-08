@@ -54,3 +54,23 @@ Calibration used the real model (`paraphrase-multilingual-MiniLM-L12-v2`): 3 top
 - **Already-sent exclusion:** besides the per-topic `sent` status (same URL), a new article is also dropped when its embedding is ≥ `CLUSTER_THRESHOLD` similar to any article sent for this topic in the last 3 days (same event from another outlet).
 - **Delivery statuses:** `sent`, `fake_sent` (FAKE_TELEGRAM), `no_chat` (no linked Telegram: stored in history, articles are marked sent so they are not resent forever), `failed` (articles stay candidates and are retried at the next run while still fresh). "Bot blocked" clears `telegram_chat_id`, sets `telegram_blocked_at`, and the site shows a warning.
 - **Articles are stored once** across topics with `INSERT IGNORE` (MySQL) / `ON CONFLICT DO NOTHING` (SQLite), so concurrent jobs do not clash on `url_hash`.
+
+## Telegram
+
+- **Deep-link tokens:** `secrets.token_urlsafe(24)` (32 chars, fits Telegram's 64-char `start` parameter), single-use, valid for 15 min. One chat can belong to one account: linking a chat that another account already uses detaches it from that account.
+- **The bot publishes its real `@username` to Redis at startup.** The API builds deep links from that value, so a mistyped `TELEGRAM_BOT_USERNAME` cannot produce broken links. The bot also logs a warning when the two differ.
+- **The bot reads and writes the DB directly** through the shared service layer (`services/telegram_link.py`). Pause/resume checks that the topic belongs to the account linked to *this* chat.
+- **Digest message format:** HTML parse mode, every block self-contained (all tags closed), messages packed at block boundaries ≤ 4096 chars, link previews off. Only `http(s)` links are rendered. Telegram 429 is retried after `retry_after`; "blocked / chat not found / deactivated" unlinks the chat.
+
+## Frontend
+
+- **Product name kept: «NewsDigest».** The logotype is set in serif type with "Digest" in the accent colour. There are no third-party marks.
+- **Design tokens** live as CSS variables (`index.css`): warm paper `#faf8f3`, graphite text, terracotta accent `#c0603a`. Newsreader for headings, Inter for body text, JetBrains Mono for queries, statuses and dates. 1px borders, 8–12px radii, near-invisible shadows, no gradients. **Dark theme** follows `prefers-color-scheme`, with a manual override (system → light → dark) stored in `localStorage` and applied before first paint.
+- **No component library:** a small set of hand-made primitives (`components/ui.tsx`) instead of shadcn/ui, because the app needs about 10 components and this keeps the bundle and dependencies small.
+- **Digest Markdown** is rendered by a tiny dedicated renderer (`lib/markdown.tsx`) for the backend's fixed format. It produces React elements only (no `dangerouslySetInnerHTML`) and renders only http(s) links.
+- **"Підключити Telegram"** opens the new tab synchronously inside the click handler and points it at the deep link once the token arrives, so popup blockers allow it. The status is polled every 3 s only while waiting and only while the tab is visible.
+- Registration sends the browser's timezone (`Intl`), so new users rarely need to change it. The backend default stays `Europe/Paris`.
+
+## Docs language
+
+- Code, comments, commits and `DECISIONS.md` are in English. `README.md` and `PROGRESS.md` are in Ukrainian, because they are written for the project owner.
