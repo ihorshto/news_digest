@@ -265,6 +265,8 @@ class FakeLLMClient:
 
     async def expand_topic(self, name: str, description: str, language: str):
         phrases = [p.strip() for p in re.split(r"[,:;.\n]+", description) if len(p.strip()) > 2]
+        # A lone word ("regulation") is too vague as a news query; anchor it to the topic.
+        phrases = [p if len(p.split()) > 1 else f"{name} {p}" for p in phrases]
         candidates = [name, *phrases]
         out = TopicExpansionOut(
             google_news_queries=[LLMQuery(query=c, language=language) for c in candidates],
@@ -279,7 +281,7 @@ class FakeLLMClient:
         items = []
         for event in events:
             lead = event.articles[0]
-            summary = _first_sentence(lead.snippet or lead.title)
+            summary = _first_sentence(lead.snippet) if lead.snippet else ""
             items.append(DigestItem(event.event_id, lead.title, summary))
         return items
 

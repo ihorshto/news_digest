@@ -7,7 +7,7 @@
 - [x] 5. News collectors (Google News RSS, Tavily) with fixture-based tests
 - [x] 6. Embeddings, relevance filter, clustering + tests
 - [x] 7. Digest generation + delivery + fakes
-- [ ] 8. Scheduling (arq cron), idempotency, timezones + `next_run_at` tests
+- [x] 8. Scheduling (arq cron), idempotency, timezones + `next_run_at` tests
 - [ ] 9. Telegram bot and account linking
 - [ ] 10. Remaining frontend pages, history, settings, dark theme
 - [ ] 11. E2E smoke test `scripts/smoke_test.sh`
