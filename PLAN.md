@@ -10,5 +10,5 @@
 - [x] 8. Scheduling (arq cron), idempotency, timezones + `next_run_at` tests
 - [x] 9. Telegram bot and account linking
 - [x] 10. Remaining frontend pages, history, settings, dark theme
-- [ ] 11. E2E smoke test `scripts/smoke_test.sh`
+- [x] 11. E2E smoke test `scripts/smoke_test.sh`
 - [ ] 12. README.md

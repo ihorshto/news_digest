@@ -74,6 +74,10 @@ class Settings(BaseSettings):
             self.fake_telegram = True
         if self.cookie_secure is None:
             self.cookie_secure = self.environment == "production"
+        if self.environment == "production" and (
+            self.jwt_secret == "change-me-in-env" or len(self.jwt_secret) < 32
+        ):
+            raise ValueError("JWT_SECRET must be set to a random string of 32+ chars in production")
         return self
 
     @property

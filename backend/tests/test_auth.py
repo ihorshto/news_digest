@@ -100,3 +100,13 @@ async def test_update_timezone(client):
     assert resp.status_code == 200
     assert resp.json()["timezone"] == "America/New_York"
     assert (await client.patch("/api/me", json={"timezone": "Nope/Nope"})).status_code == 422
+
+
+def test_production_requires_strong_jwt_secret():
+    import pytest
+
+    from app.core.config import Settings
+
+    with pytest.raises(ValueError):
+        Settings(environment="production", jwt_secret="short")
+    assert Settings(environment="production", jwt_secret="x" * 40).cookie_secure is True

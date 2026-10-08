@@ -1,0 +1,18 @@
+# Overrides for scripts/smoke_test.sh: isolated project, all external providers faked.
+x-fake: &fake
+  environment:
+    MYSQL_HOST: mysql
+    REDIS_URL: redis://redis:6379/0
+    EMBEDDING_CACHE_DIR: /models
+    FAKE_LLM: "1"
+    FAKE_TAVILY: "1"
+    FAKE_TELEGRAM: "1"
+    JWT_SECRET: smoke-test-secret-smoke-test-secret
+
+services:
+  api: *fake
+  worker: *fake
+  bot: *fake
+  web:
+    ports: !override
+      - "${SMOKE_PORT:-18080}:80"
