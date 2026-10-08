@@ -3,7 +3,7 @@
 - [x] 1. Repository skeleton, docker-compose, healthchecks, empty services that start
 - [x] 2. Backend: models, migrations, auth + tests
 - [x] 3. Frontend: design system, login/register, protected routes
-- [ ] 4. Topics CRUD + LLM topic expansion + tests
+- [x] 4. Topics CRUD + LLM topic expansion + tests
 - [ ] 5. News collectors (Google News RSS, Tavily) with fixture-based tests
 - [ ] 6. Embeddings, relevance filter, clustering + tests
 - [ ] 7. Digest generation + delivery + fakes
